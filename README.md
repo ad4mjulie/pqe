@@ -2,7 +2,7 @@
 
 Post-quantum file encryption for any file type (documents, photos, archives). It comes with a command-line tool and a small desktop window, both written in Rust.
 
-**Status: experimental and unaudited. It is fine for personal use and learning. Don't rely on it for anything critical.**
+**Status: experimental. 
 
 ## How it works
 
