@@ -188,9 +188,7 @@ pub fn decrypt(input: &str, privkey: &str) -> Res<String> {
     } else {
         PathBuf::from(format!("{input}.dec"))
     };
-    if out.exists() {
-        return Err(format!("refusing to overwrite {}", out.display()).into());
-    }
+    let out = unique_path(out);
 
     let mut reader = BufReader::new(File::open(src)?);
 
@@ -265,4 +263,22 @@ pub fn decrypt(input: &str, privkey: &str) -> Res<String> {
         return Err(e);
     }
     Ok(format!("Decrypted -> {}", out.display()))
+}
+
+/// If `p` exists, pick "name (2).ext", "name (3).ext", ... so nothing is overwritten.
+fn unique_path(p: PathBuf) -> PathBuf {
+    if !p.exists() {
+        return p;
+    }
+    let dir = p.parent().map(|d| d.to_path_buf()).unwrap_or_default();
+    let stem = p.file_stem().map(|s| s.to_string_lossy().to_string()).unwrap_or_default();
+    let ext = p.extension().map(|e| format!(".{}", e.to_string_lossy())).unwrap_or_default();
+    let mut n = 2;
+    loop {
+        let cand = dir.join(format!("{stem} ({n}){ext}"));
+        if !cand.exists() {
+            return cand;
+        }
+        n += 1;
+    }
 }
