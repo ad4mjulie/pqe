@@ -339,12 +339,12 @@ impl eframe::App for App {
                 let (fill, stroke) = if hovering {
                     (
                         Color32::from_rgba_unmultiplied(70, 120, 235, 40),
-                        Stroke::new(2.0, ACCENT),
+                        Stroke::new(2.0_f32, ACCENT),
                     )
                 } else {
                     (
                         ui.visuals().extreme_bg_color,
-                        Stroke::new(1.0, ui.visuals().widgets.noninteractive.bg_stroke.color),
+                        Stroke::new(1.0_f32, ui.visuals().widgets.noninteractive.bg_stroke.color),
                     )
                 };
                 ui.painter().rect(rect, 10.0, fill, stroke);
