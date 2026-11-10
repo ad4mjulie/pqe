@@ -47,13 +47,6 @@ It never overwrites existing files.
 
 Overhead is about 1.1 KB per file plus 16 bytes per 1 MiB chunk.
 
-## Limitations
-
-- Not independently audited. The `ml-kem` crate is pre-1.0.
-- No digital signatures, so a file doesn't prove who encrypted it.
-- The private key file is not password-protected.
-- No folder support. Encrypt files one at a time, or zip a folder first.
-- Tested only with round trips on macOS.
 
 ## License
 
